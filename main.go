@@ -1,15 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 )
 
-func hello(w http.ResponseWriter, r *http.Request) {
+func respond(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Hello world!")
 }
 
+func StartServer() {
+	fmt.Println("Server Started")
+	http.HandleFunc("/", respond)
+	http.ListenAndServe(":3000", nil)
+}
+
 func main() {
-	http.HandleFunc("/", hello)
-	http.ListenAndServe(":8000", nil)
+	fmt.Println("Starting Server")
+	StartServer()
 }
