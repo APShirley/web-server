@@ -12,7 +12,7 @@ var _ = Describe("UserLogin", func() {
 	var page *agouti.Page
 
 	BeforeEach(func() {
-		StartServer()
+		StartMyApp()
 
 		var err error
 		page, err = agoutiDriver.NewPage(agouti.Browser("firefox"))
@@ -25,7 +25,7 @@ var _ = Describe("UserLogin", func() {
 
 	It("should handle requests", func() {
 		Expect(page.Navigate("http://localhost:3000")).To(Succeed())
-		Expect(page).To(HaveURL("http://localhost:3000"))
-		// TODO Something like this: Expect(page).To(ContainSubstring("Hello world!"))
+		Expect(page).To(HaveURL("http://localhost:3000/"))
+		Expect(page.Find("body")).To(HaveText("Hello world!"))
 	})
 })
